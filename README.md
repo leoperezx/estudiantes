@@ -4,7 +4,11 @@ Colombia 2022
 
 ## Resumen
 
-A continuación se presenta un desarrollo de análisis de datos como tema de estudio y práctica autodidacta. No soy ningun experto y busco realizar un buen proyecto como medio para aprender temas de arquitectura, estructura y programación con python y streamlit. Por otra parte, la intención de este proyecto es realizar un estudio sobre la tendencia de los estudiantes de bachillerato a la hora de escoger carrera en las universidades.
+A continuación se presenta un desarrollo de análisis de datos como tema de estudio y práctica autodidacta. El presente proyecto se encuetra en desarrollo y en consturcción. No soy ningun experto, seguramente tendra errores y mejores procedimientos. No busco realizar un buen proyecto perfecto a la primera pero, si busco aprender temas de arquitectura, estructura de directorios, manejo de github, programación con python y streamlit. Cualquier sujerencia es bien recibida. Por otra parte, la intención de este proyecto es realizar un estudio sobre la tendencia de los estudiantes de bachillerato a la hora de escoger carrera en las universidades. Soy maestro y me gustaría poder entregarle a mis estudiantes de bachillerato un herramienta un análisis a la hora de escoger carrera.
+
+## Línea de desarrollo
+
+Planteo una línea de trabajo o desarrollo en donde plasmo mi ruta de trabajo. Además organizo mis directorios en donde voy añadiendo los diferentes algoritmos. Mi flujo de trabajo es desarrollar diferentes bases en la producción. La primer face es hacer _pruebas_ utilizando los archivos de _Jupyter_. Todas estas pruebas se alojan en el directorio _notebook_ y son el insumo de los _archivos fuente_ en el directorio _src_. La segunsa fase son los archivos en el directorio _src_, los cuales están organizados de una mejor forma o incluso con una _refactorización_ de los códigos del _Jupyter_. En esta face espero organizar los _archivos fuente_ que voy a ir ejecutando y retornando archivos csv en el directorio _data/prosessed_ que su vez serán utilizados en nuevas _pruebas_ y _archivos fuente_. Por último la fase tres es el desarrollo de un _dashboard_ con "Streamlit" y para hacerlo me voy a apoyar en muchos de los _archivos fuente_ usandolos como "modulos" invocando las funciones. 
 
 ## 📊 Análisis General de Demanda
 
