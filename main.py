@@ -28,31 +28,31 @@ with tabs[0]:
     lista_de_departamentos = df_matriculas['DEPARTAMENTO DE OFERTA DEL PROGRAMA'].unique()
     # contateno la lista de universidades con la "Todas".
     lista_departamentos = list(lista_de_departamentos)
-    # Creo una sidebar para tomar una opción
-    
+    # Creo un selectbox para tomar una opción
     departamento_seleccionado = st.selectbox('Selecciona el departamento:',lista_departamentos)
-    # creo un condicional para determinar que tan grande es la selección
-    # df_filtrado = df_matriculas[df_matriculas['INSTITUCIÓN DE EDUCACIÓN SUPERIOR (IES)'] == departamento_seleccionado]
-    # Título de la entrega de la información    
+    # Creo un título con el departamento seleccionado   
     st.subheader(f'Datos Filtrados para: {departamento_seleccionado}')
-    
+    # Creo el dataframe del departamento seleccionado
     df_departamento=fn.df_filtro_departamento(df_matriculas,departamento_seleccionado)
     # conteo de los registro de matrícula de acuerdo a la selección
     st.write(f'Número de registros: **{len(df_departamento)}**')
-    # muestra la información flitrada
-    # st.dataframe(df_filtrado,hide_index=True)
-
-    matriculas_por_departamento = fn.matriculas_por_departamento(df_departamento)
-    # print(matriculas_por_ies)
     
-    st.dataframe(matriculas_por_departamento)
-    # print(matriculas_por_ies[0].dtypes)
-    sumatoria_por_IES = fn.top_10_IES_sumatoria(df_departamento)
-    print(sumatoria_por_IES.sort_values(ascending=False).head(20))
+    sumatoria_por_IES = fn.top_10_IES_sumatoria(df_departamento).sort_values(ascending=False).head(20)
+    # la respuesta es una Serie por lo que hay que separar los index de los valores y convertirlos a df.
+    data_sumatoria_por_IES = fn.convertir_a_df(sumatoria_por_IES)
     
-    # tareas
-    # - imprimir lista de IES en streamlit
-    # - hacer graficas (torta o barras con porcentajes )
+    # Organizando arquitectura de streamlit 
+    # Crear dos columnas: la primera ocupa 60% del espacio y la segunda 40%
+    col_ancho1, col_ancho2 = st.columns([0.6, 0.4])
+    
+    with col_ancho1:
+        # Imprime dataframe
+        st.dataframe(data_sumatoria_por_IES)
+      
+    with col_ancho2:
+        # Crea un gráfico de barras
+        st.bar_chart(data_sumatoria_por_IES.set_index('Index'), x_label="Número de matrículas", y_label="IES", horizontal=True, sort="-Valores") 
+    
     # - separar info de posgrados 
     # - imprimir lista por áreas
     # - separar info por programas
