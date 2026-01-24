@@ -1,6 +1,7 @@
 # Algoritmo complento del archivo posgrados.py
 import pandas as pd
 import streamlit as st
+import plotly.express as px
 
 def cargar_db (archivo):
     '''
@@ -28,3 +29,16 @@ def convertir_a_df(df):
     index_df = df.index
     datos = {'Index': index_df, 'Valores': valores_df}
     return pd.DataFrame(datos)
+
+def df_filtro_posgrados(df,nivel):
+    return df[df['NIVEL ACADÉMICO'].isin([nivel])] 
+
+def generando_grafica(df,x_label,y_label):
+    df_invertido = df.iloc[::-1]
+    fig = px.bar(df_invertido,x="Valores",y="Index",orientation='h',labels={"Valores": x_label, "Index":y_label})
+    fig.update_layout(
+        margin=dict(l=50, r=20, t=20, b=20),
+        yaxis=dict(automargin=True)
+    )
+    fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightGray')
+    return fig

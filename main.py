@@ -8,6 +8,7 @@
 
 import src.funciones as fn # La ruta relativa cambia los "/" por "."  
 import streamlit as st
+
 st.set_page_config(layout="wide")
 
 archivo = 'data/prosessed/info_reducida_2022_limpia.csv'
@@ -23,7 +24,7 @@ st.dataframe(df_matriculas.head())
 
 tabs = st.tabs(['Info por departamento','Limpieza de datos'])
 with tabs[0]:
-    st.subheader('Info por departamento')
+    st.subheader('Información por departamento')
     # Creo una lista de las universidades
     lista_de_departamentos = df_matriculas['DEPARTAMENTO DE OFERTA DEL PROGRAMA'].unique()
     # contateno la lista de universidades con la "Todas".
@@ -37,26 +38,56 @@ with tabs[0]:
     # conteo de los registro de matrícula de acuerdo a la selección
     st.write(f'Número de registros: **{len(df_departamento)}**')
     
-    sumatoria_por_IES = fn.top_10_IES_sumatoria(df_departamento).sort_values(ascending=False).head(20)
-    # la respuesta es una Serie por lo que hay que separar los index de los valores y convertirlos a df.
-    data_sumatoria_por_IES = fn.convertir_a_df(sumatoria_por_IES)
-    
     # Organizando arquitectura de streamlit 
     # Crear dos columnas: la primera ocupa 60% del espacio y la segunda 40%
-    col_ancho1, col_ancho2 = st.columns([0.6, 0.4])
     
-    with col_ancho1:
+    
+    row1=st.container(border=True)
+    row2=st.container(border=True)
+    row3=st.container()
+    col1, col2 = row1.columns([0.6, 0.4])
+    col3, col4 = row2.columns([0.6, 0.4])
+    
+    with col1:
+        sumatoria_por_IES = fn.top_10_IES_sumatoria(df_departamento).sort_values(ascending=False).head(10)
+        # la respuesta es una Serie por lo que hay que separar los index de los valores y convertirlos a df.
+        data_sumatoria_por_IES = fn.convertir_a_df(sumatoria_por_IES)
+        
+        grafica=fn.generando_grafica(data_sumatoria_por_IES,"Matrículas","Pregrado y Posgrado")
+        st.plotly_chart(grafica)
+        
+      
+    with col2:
         # Imprime dataframe
         st.dataframe(data_sumatoria_por_IES)
-      
-    with col_ancho2:
-        # Crea un gráfico de barras
-        st.bar_chart(data_sumatoria_por_IES.set_index('Index'), x_label="Número de matrículas", y_label="IES", horizontal=True, sort="-Valores") 
     
     # - separar info de posgrados 
+    # st.subheader('Info por departamento | Nivel academico POSGRADOS')
+    
+    df_posgrados = fn.df_filtro_posgrados(df_departamento,nivel='POSGRADO')
+    
+    with col3:
+        sumatoria_por_posgrados = fn.top_10_IES_sumatoria(df_posgrados).sort_values(ascending=False).head(10)
+        # la respuesta es una Serie por lo que hay que separar los index de los valores y convertirlos a df.
+        data_sumatoria_por_posgrados = fn.convertir_a_df(sumatoria_por_posgrados)
+
+        grafica=fn.generando_grafica(data_sumatoria_por_posgrados,"Matrícula","Posgrado")
+        st.plotly_chart(grafica)
+        
+      
+    with col4:
+        # Imprime dataframe
+        st.dataframe(data_sumatoria_por_posgrados)
+        
+    # - Nota: No he podido organicar la información para que se vea una matriz de 2x2
+    #   y además se deben retirar las tablas de información ya que con las gráficas es 
+    #   suficiente. 
+    
     # - imprimir lista por áreas
     # - separar info por programas
     # - hacer graficas de los programas (torta o barras con porcentajes)
+    
+    # - 
 
 with tabs[1]:
      st.subheader('Limpieza de datos')
