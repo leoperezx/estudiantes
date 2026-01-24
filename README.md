@@ -8,7 +8,7 @@ A continuación se presenta un desarrollo de análisis de datos como tema de est
 
 ## Línea de desarrollo
 
-Planteo una línea de trabajo o desarrollo en donde plasmo mi ruta de trabajo. Además organizo mis directorios en donde voy añadiendo los diferentes algoritmos. Mi flujo de trabajo es desarrollar diferentes bases en la producción. La primer face es hacer _pruebas_ utilizando los archivos de _Jupyter_. Todas estas pruebas se alojan en el directorio _notebook_ y son el insumo de los _archivos fuente_ en el directorio _src_. La segunsa fase son los archivos en el directorio _src_, los cuales están organizados de una mejor forma o incluso con una _refactorización_ de los códigos del _Jupyter_. En esta face espero organizar los _archivos fuente_ que voy a ir ejecutando y retornando archivos csv en el directorio _data/prosessed_ que su vez serán utilizados en nuevas _pruebas_ y _archivos fuente_. Por último la fase tres es el desarrollo de un _dashboard_ con "Streamlit" y para hacerlo me voy a apoyar en muchos de los _archivos fuente_ usandolos como "modulos" invocando las funciones. 
+Planteo una línea de trabajo o desarrollo en donde plasmo mi ruta de trabajo. Además organizo mis directorios en donde voy añadiendo los diferentes algoritmos. Mi flujo de trabajo es desarrollar diferentes bases en la producción. La primer face es hacer _pruebas_ utilizando los archivos de _Jupyter_. Todas estas pruebas se alojan en el directorio _notebook_ y son el insumo de los _archivos fuente_ en el directorio _src_. La segunsa fase son los archivos en el directorio _src_, los cuales están organizados de una mejor forma o incluso con una _refactorización_ de los códigos del _Jupyter_. En esta face espero organizar los _archivos fuente_ que voy a ir ejecutando y retornando archivos csv en el directorio _data/prosessed_ que su vez serán utilizados en nuevas _pruebas_ y _archivos fuente_. Por último la fase tres es el desarrollo de un _dashboard_ con "Streamlit" y para hacerlo me voy a apoyar en muchos de los _archivos fuente_ usandolos como "modulos" invocando las funciones.
 
 ## 📊 Análisis General de Demanda
 
@@ -24,7 +24,7 @@ Estas ideas te ayudarán a entender la distribución básica de la matrícula.
 
 Estas ideas se centran en los intereses académicos de los estudiantes.
 
-* **Programas más Demandados:** Genera un *ranking* de los **'PROGRAMAS ACADÉMICOS'** individuales con mayor matrícula a nivel nacional o por departamento. ¿Cuáles son las carreras más populares?
+* **Programas más Demandados:** Genera un _ranking_ de los **'PROGRAMAS ACADÉMICOS'** individuales con mayor matrícula a nivel nacional o por departamento. ¿Cuáles son las carreras más populares?
 * **Demanda por Área de Conocimiento:** Agrupa la matrícula por **'ÁREA DE CONOCIMIENTO'** (e.g., Ingeniería, Ciencias de la Salud, Ciencias Sociales). Esto te permite ver las grandes tendencias de demanda en el mercado laboral y académico.
 * **Áreas de Crecimiento/Disminución (si tienes datos de semestres):** Si tu columna **'SEMESTRE'** permite diferenciar el primer y segundo semestre de 2022, puedes comparar la matrícula para ver qué áreas o programas tuvieron un cambio en la demanda en el transcurso del año.
 
@@ -106,58 +106,58 @@ Para iniciar Git y trabajar con ramas localmente, primero inicializa un reposito
 
 ## Trabajando con STREAMLIT - Comandos básicos
 
-Streamlit es una biblioteca de Python para crear aplicaciones web de datos rápidamente. Los comandos básicos incluyen `st.write()` para texto/datos, `st.title()` para títulos, y widgets interactivos como `st.button()`, `st.slider()`, y `st.text_input()`. Se ejecutan con `streamlit run app.py`. 
+Streamlit es una biblioteca de Python para crear aplicaciones web de datos rápidamente. Los comandos básicos incluyen `st.write()` para texto/datos, `st.title()` para títulos, y widgets interactivos como `st.button()`, `st.slider()`, y `st.text_input()`. Se ejecutan con `streamlit run app.py`.
 
-### Aquí tienes los comandos fundamentales organizados por categoría:
+### Aquí tienes los comandos fundamentales organizados por categoría
 
 #### 1. Configuración y Ejecución
 
-- `import streamlit as st`: Importar la biblioteca.
-- `$ streamlit run app.py`: Ejecutar la aplicación en la terminal.
-- `st.set_page_config(page_title="Título", layout="wide")`: Configurar el título de la pestaña del navegador y el diseño. 
+* `import streamlit as st`: Importar la biblioteca.
+* `$ streamlit run app.py`: Ejecutar la aplicación en la terminal.
+* `st.set_page_config(page_title="Título", layout="wide")`: Configurar el título de la pestaña del navegador y el diseño.
 
 #### 2. Visualización de Texto y Datos
 
-- `st.title("Título")`: Título principal.
-- `st.header("Encabezado")`: Encabezado de sección.
-- `st.subheader("Subencabezado")`: Subencabezado.
-- `st.write("Texto o variables")`: Escribir texto, datos, gráficos, etc..
-- `st.markdown("Texto en *Markdown*")`: Renderizar texto con formato Markdown.
-- `st.dataframe(df)`: Mostrar un DataFrame de Pandas interactivo.
-- `st.table(df)`: Mostrar una tabla estática.
-- `st.json({"key": "value"})`: Mostrar objetos JSON. 
+* `st.title("Título")`: Título principal.
+* `st.header("Encabezado")`: Encabezado de sección.
+* `st.subheader("Subencabezado")`: Subencabezado.
+* `st.write("Texto o variables")`: Escribir texto, datos, gráficos, etc..
+* `st.markdown("Texto en *Markdown*")`: Renderizar texto con formato Markdown.
+* `st.dataframe(df)`: Mostrar un DataFrame de Pandas interactivo.
+* `st.table(df)`: Mostrar una tabla estática.
+* `st.json({"key": "value"})`: Mostrar objetos JSON.
 
 #### 3. Widgets Interactivos (Entrada de datos)
 
-- `st.button("Hacer clic")`: Botón interactivo.
-- `st.checkbox("Opción")`: Casilla de verificación.
-- `st.radio("Elegir", ["A", "B"])`: Botones de opción.
-- `st.selectbox("Seleccionar", ["A", "B"])`: Menú desplegable.
-- `st.text_input("Nombre")`: Campo de entrada de texto.
-- `st.number_input("Edad", min_value=0, max_value=100)`: Entrada numérica.
-- `st.slider("Seleccionar valor", 0, 100)`: Deslizador.
-- `st.file_uploader("Subir archivo")`: Componente para cargar archivos. 
+* `st.button("Hacer clic")`: Botón interactivo.
+* `st.checkbox("Opción")`: Casilla de verificación.
+* `st.radio("Elegir", ["A", "B"])`: Botones de opción.
+* `st.selectbox("Seleccionar", ["A", "B"])`: Menú desplegable.
+* `st.text_input("Nombre")`: Campo de entrada de texto.
+* `st.number_input("Edad", min_value=0, max_value=100)`: Entrada numérica.
+* `st.slider("Seleccionar valor", 0, 100)`: Deslizador.
+* `st.file_uploader("Subir archivo")`: Componente para cargar archivos.
 
 #### 4. Visualización de Gráficos
 
-- `st.line_chart(datos)`: Gráfico de líneas.
-- `st.area_chart(datos)`: Gráfico de áreas.
-- `st.bar_chart(datos)`: Gráfico de barras. 
+* `st.line_chart(datos)`: Gráfico de líneas.
+* `st.area_chart(datos)`: Gráfico de áreas.
+* `st.bar_chart(datos)`: Gráfico de barras.
 
 #### 5. Diseño y Organización (Layouts)
 
-- `st.sidebar`: Añadir elementos a la barra lateral (ej: `st.sidebar.selectbox(...)`).
-- `col1, col2 = st.columns(2)`: Crear columnas.
-- `with st.expander("Ver más"):`: Crear un contenedor expandible. 
+* `st.sidebar`: Añadir elementos a la barra lateral (ej: `st.sidebar.selectbox(...)`).
+* `col1, col2 = st.columns(2)`: Crear columnas.
+* `with st.expander("Ver más"):`: Crear un contenedor expandible.
 
 #### 6. Mensajes de Estado
 
-- `st.success("Operación exitosa")`: Mensaje verde.
-- `st.info("Información")`: Mensaje azul.
-- `st.warning("Advertencia")`: Mensaje amarillo.
-- `st.error("Error")`: Mensaje rojo.
-- `st.balloons()`: Mostrar animación de globos.
-- `st.snow()`: Mostrar animación de nieve. 
+* `st.success("Operación exitosa")`: Mensaje verde.
+* `st.info("Información")`: Mensaje azul.
+* `st.warning("Advertencia")`: Mensaje amarillo.
+* `st.error("Error")`: Mensaje rojo.
+* `st.balloons()`: Mostrar animación de globos.
+* `st.snow()`: Mostrar animación de nieve.
 
 Los "comandos mágicos" permiten escribir directamente texto o variables sin st.write().
 
