@@ -45,43 +45,43 @@ with tabs[0]:
     row1=st.container(border=True)
     row2=st.container(border=True)
     row3=st.container()
-    col1, col2 = row1.columns([0.6, 0.4])
-    col3, col4 = row2.columns([0.6, 0.4])
+    col1, col2 = row1.columns([0.5, 0.5])
+    col3, col4 = row2.columns([0.5, 0.5])
     
     with col1:
         sumatoria_por_IES = fn.top_10_IES_sumatoria(df_departamento).sort_values(ascending=False).head(10)
         # la respuesta es una Serie por lo que hay que separar los index de los valores y convertirlos a df.
         data_sumatoria_por_IES = fn.convertir_a_df(sumatoria_por_IES)
-        
-        grafica=fn.generando_grafica(data_sumatoria_por_IES,"Matrículas","Pregrado y Posgrado")
+        st.subheader("Gráfica de matrículas de Posgrado y pregrado", text_alignment='center')
+        grafica=fn.generando_grafica(data_sumatoria_por_IES,"Matrículas","IES")
         st.plotly_chart(grafica)
         
-      
+    df_posgrados = fn.df_filtro_posgrados(df_departamento,nivel='POSGRADO')  # solo se unas df_posgrados una vez
+    
     with col2:
-        # Imprime dataframe
-        st.dataframe(data_sumatoria_por_IES)
-    
-    # - separar info de posgrados 
-    # st.subheader('Info por departamento | Nivel academico POSGRADOS')
-    
-    df_posgrados = fn.df_filtro_posgrados(df_departamento,nivel='POSGRADO')
-    
-    with col3:
         sumatoria_por_posgrados = fn.top_10_IES_sumatoria(df_posgrados).sort_values(ascending=False).head(10)
         # la respuesta es una Serie por lo que hay que separar los index de los valores y convertirlos a df.
         data_sumatoria_por_posgrados = fn.convertir_a_df(sumatoria_por_posgrados)
-
-        grafica=fn.generando_grafica(data_sumatoria_por_posgrados,"Matrícula","Posgrado")
+        st.subheader("Gráfica de matrículas de Posgrado", text_alignment='center')
+        grafica=fn.generando_grafica(data_sumatoria_por_posgrados,"Matrícula","IES")
         st.plotly_chart(grafica)
         
+       
+    with col3:
+        sumatoria_por_Area_de_conocimiento = fn.Area_de_conocimiento_sumatoria(df_departamento).sort_values(ascending=False)
+        data_sumatoria_por_areas_de_conocimiento = fn.convertir_a_df(sumatoria_por_Area_de_conocimiento)
+        st.subheader("Gráfica de matrículas por áreas de conocimiento", text_alignment='center')
+        grafica=fn.generando_grafica(data_sumatoria_por_areas_de_conocimiento,"Matrícula","Áreas de conocimiento")
+        st.plotly_chart(grafica)
       
     with col4:
         # Imprime dataframe
-        st.dataframe(data_sumatoria_por_posgrados)
-        
-    # - Nota: No he podido organicar la información para que se vea una matriz de 2x2
-    #   y además se deben retirar las tablas de información ya que con las gráficas es 
-    #   suficiente. 
+        st.write("Gráfica por nombre del programa")
+        sumatoria_por_programa_academico = fn.programa_academico_sumatoria(df_departamento).sort_values(ascending=False).head(10)
+        data_sumatoria_por_programa_academico = fn.convertir_a_df(sumatoria_por_programa_academico)
+        st.subheader("Gráfica de matrículas por programa académico", text_alignment='center')
+        grafica=fn.generando_grafica(data_sumatoria_por_programa_academico,"Matrícula","Programa académico")
+        st.plotly_chart(grafica)
     
     # - imprimir lista por áreas
     # - separar info por programas

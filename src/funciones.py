@@ -24,6 +24,12 @@ def df_filtro_departamento(df,departamento):
 def top_10_IES_sumatoria(df):
     return df.groupby('INSTITUCIÓN DE EDUCACIÓN SUPERIOR (IES)')['MATRICULADOS'].sum()   
 
+def Area_de_conocimiento_sumatoria(df):
+    return df.groupby('ÁREA DE CONOCIMIENTO')['MATRICULADOS'].sum()   
+
+def programa_academico_sumatoria(df):
+    return df.groupby('PROGRAMA ACADÉMICO')['MATRICULADOS'].sum()  
+
 def convertir_a_df(df):
     valores_df = df.values
     index_df = df.index
