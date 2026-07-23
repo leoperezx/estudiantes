@@ -111,9 +111,9 @@ with tab2:
     st.markdown(''' 
                 El presente código trabaja con una base de datos que contiene información sobre el número de graduados de diferentes carreras. La base de datos original se puede descargar del [_Observatorio Laboral para la Educación - OLE_](https://ole.mineducacion.gov.co/portal/secciones/Estudios-y-documentos/Tablas-de-salida-y-Bases-de-Datos/#data=%7B%22filter%22:%2268247%22,%22page%22:1%7D).
                 
-                Las funciones del Observatorio Laboral para la Educación y en general de otras entidades que están relacionadas con los estudios de seguimiento a graduados, mercado laboral y capital humano calificado son recopilar y analizar información relevante al mercado laboral de los egresados de pregrado y posgrado.
+                Las funciones del Observatorio Laboral para la Educación, están relacionadas con los estudios de seguimiento a graduados en el mercado laboral y sobre el capital humano calificado. Mi interés es difundir este tipo de información de una forma más comoda para cualquier persona iteresada y al mismo tiempo practico mis habilidades en programación. 
 
-                Dentro de la pagina oficial se pueden filtrar consultas por el año de publicación, en este caso se filtro por el año mas reciente disponible que para la fecha de la realización de este algoritmo fue el 2023 pero solo contiene datos hasta 2022.
+                Dentro de la pagina oficial de OLE se pueden filtrar consultas por año, en este caso se filtro por el año mas reciente disponible que para la fecha y realización de este algoritmo fue el año 2023 pero, paso algo curioso, solo contiene datos hasta 2022.
                 ''')
     
     df_egresados = fn.cargar_datos(archivo_OLE)
