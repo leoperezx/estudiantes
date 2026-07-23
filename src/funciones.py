@@ -48,3 +48,42 @@ def generando_grafica(df,x_label,y_label):
     )
     fig.update_xaxes(showgrid=True, gridwidth=1, gridcolor='LightGray')
     return fig
+
+# funciones para la sección del observador laboral para la educacion - OLE
+
+def lista_anhos_disponebles(df):
+    return sorted(df['AÑO DE GRADO'].unique(), reverse=True)
+
+def df_filtrado_anhos(df, anho_seleccionado):
+    return df[df['AÑO DE GRADO'] == anho_seleccionado]
+
+def df_filtrado_agrupado_programa_y_sexo(df):
+    return df.groupby(['PROGRAMA ACADÉMICO', 'SEXO'], as_index=False)['GRADUADOS'].sum()
+
+def top_20_programas(df):
+    top_programas = (
+        df.groupby('PROGRAMA ACADÉMICO')['GRADUADOS']
+        .sum()
+        .nlargest(20)
+        .index
+    )
+    return df[df['PROGRAMA ACADÉMICO'].isin(top_programas)]
+
+def generando_grafica_top_20(df,anho_seleccionado):
+    fig = px.bar(
+        df,
+        x='GRADUADOS',                # Ahora el número va en el eje X
+        y='PROGRAMA ACADÉMICO',       # El nombre del programa va en el eje Y
+        color='SEXO',
+        title=f'Top 20 Programas Académicos con Mayor Número de Graduados en {anho_seleccionado} en Colombia',
+        labels={'GRADUADOS': 'Total Graduados', 'PROGRAMA ACADÉMICO': 'Programa Académico'},
+        barmode='group', 
+        color_discrete_map={'FEMENINO': '#e066ff', 'MASCULINO': '#1f77b4'},
+        orientation='h'               # Forzar orientación horizontal
+    )
+    fig.update_layout(
+        height=700,                   # Más altura para que se lean bien los nombres
+        yaxis={'categoryorder': 'total ascending'}, # Muestra el programa con más graduados arriba del todo
+        margin=dict(l=200)            # Margen izquierdo extra para que no se corten los nombres largos
+    )
+    return fig

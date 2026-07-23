@@ -11,26 +11,41 @@ import streamlit as st
 
 st.set_page_config(layout="wide")
 
-archivo = 'data/prosessed/info_reducida_2022_limpia.csv'
-
+archivo_SNIES_2022 = 'data/prosessed/info_reducida_2022_limpia.csv'
+archivo_OLE = 'data/prosessed/df_observador_laboral_pregrado.csv'
 # # print(df.info())
 # # print(df.columns)
-df_matriculas = fn.cargar_datos(archivo)
+df_matriculas = fn.cargar_datos(archivo_SNIES_2022)
 
-st.title('Análisis de matriculas universitarias - 2022')
+st.title('Datos sobre el sistema educativo en Colombia - 2022')
+st.markdown(''' 
+            En el [Sistema Nacional de Información de la Educación Superior - SNIES](https://snies.mineducacion.gov.co/portal/ESTADISTICAS/Bases-consolidadas/) se encuentran diferentes bases de datos sobre los estudiantes inscritos, admitidos y matriculados en las instituciones de educación superior en Colombia. 
+            
+            Estas bases de datos son la materia prima de este "tablero" que invita a estudiantes, maestros, padres de familia o acudientes a ver de una forma mas comoda los datos registrados por el SNIES. 
+            
+            Developed by | :blue-background[@leoperez.x]
+            ''')
+
+st.divider()
+
 st.header('Bienvenido al panel de datos')
-st.text(f'El conjunto de datos tiene {len(df_matriculas)} registros de matrículas pero, sólo se muestran las 5 primeras filas. ')
-st.dataframe(df_matriculas.head())
+st.text(f'El conjunto de datos tiene {len(df_matriculas)} registros de matrículas, pero este panel filtra por departamento y realiza graficas sobre el número de matrículas de estudiantes de prosgrado y pregrado organizandolos de mayor a menor mostrando las instituciones educativas, las áreas de conocimiento y los programas con mayor número de matrículas en el año 2022.')
+# st.dataframe(df_matriculas.head())
 
-tabs = st.tabs(['Info por departamento','Limpieza de datos'])
-with tabs[0]:
+tab1, tab2 = st.tabs(['Info por departamento','Observatorio laboral'])
+# tabs = st.tabs(['Info por departamento','Observatorio laboral'])
+
+st.sidebar.header("Controles", text_alignment="center")
+    
+with tab1:
     st.subheader('Información por departamento')
     # Creo una lista de las universidades
     lista_de_departamentos = df_matriculas['DEPARTAMENTO DE OFERTA DEL PROGRAMA'].unique()
     # contateno la lista de universidades con la "Todas".
     lista_departamentos = list(lista_de_departamentos)
     # Creo un selectbox para tomar una opción
-    departamento_seleccionado = st.selectbox('Selecciona el departamento:',lista_departamentos)
+    st.sidebar.subheader("Info por departamento")
+    departamento_seleccionado = st.sidebar.selectbox('Selecciona el departamento:',lista_departamentos)
     # Creo un título con el departamento seleccionado   
     st.subheader(f'Datos Filtrados para: {departamento_seleccionado}')
     # Creo el dataframe del departamento seleccionado
@@ -65,29 +80,49 @@ with tabs[0]:
         st.subheader("Gráfica de matrículas de Posgrado", text_alignment='center')
         grafica=fn.generando_grafica(data_sumatoria_por_posgrados,"Matrícula","IES")
         st.plotly_chart(grafica)
+            
         
-       
-    with col3:
-        sumatoria_por_Area_de_conocimiento = fn.Area_de_conocimiento_sumatoria(df_departamento).sort_values(ascending=False)
-        data_sumatoria_por_areas_de_conocimiento = fn.convertir_a_df(sumatoria_por_Area_de_conocimiento)
-        st.subheader("Gráfica de matrículas por áreas de conocimiento", text_alignment='center')
-        grafica=fn.generando_grafica(data_sumatoria_por_areas_de_conocimiento,"Matrícula","Áreas de conocimiento")
-        st.plotly_chart(grafica)
-      
-    with col4:
-        # Imprime dataframe
-        st.write("Gráfica por nombre del programa")
-        sumatoria_por_programa_academico = fn.programa_academico_sumatoria(df_departamento).sort_values(ascending=False).head(10)
-        data_sumatoria_por_programa_academico = fn.convertir_a_df(sumatoria_por_programa_academico)
-        st.subheader("Gráfica de matrículas por programa académico", text_alignment='center')
-        grafica=fn.generando_grafica(data_sumatoria_por_programa_academico,"Matrícula","Programa académico")
-        st.plotly_chart(grafica)
-    
-    # - imprimir lista por áreas
-    # - separar info por programas
-    # - hacer graficas de los programas (torta o barras con porcentajes)
-    
-    # - 
+        with col3:
+            sumatoria_por_Area_de_conocimiento = fn.Area_de_conocimiento_sumatoria(df_departamento).sort_values(ascending=False)
+            data_sumatoria_por_areas_de_conocimiento = fn.convertir_a_df(sumatoria_por_Area_de_conocimiento)
+            st.subheader("Gráfica de matrículas por áreas de conocimiento", text_alignment='center')
+            grafica=fn.generando_grafica(data_sumatoria_por_areas_de_conocimiento,"Matrícula","Áreas de conocimiento")
+            st.plotly_chart(grafica)
+        
+        with col4:
+            # Imprime dataframe
+            st.write("Gráfica por nombre del programa")
+            sumatoria_por_programa_academico = fn.programa_academico_sumatoria(df_departamento).sort_values(ascending=False).head(10)
+            data_sumatoria_por_programa_academico = fn.convertir_a_df(sumatoria_por_programa_academico)
+            st.subheader("Gráfica de matrículas por programa académico", text_alignment='center')
+            grafica=fn.generando_grafica(data_sumatoria_por_programa_academico,"Matrícula","Programa académico")
+            st.plotly_chart(grafica)
+        
+        # - imprimir lista por áreas
+        # - separar info por programas
+        # - hacer graficas de los programas (torta o barras con porcentajes)
+        
+        # - 
 
-with tabs[1]:
-     st.subheader('Limpieza de datos')
+
+    
+with tab2:
+    st.subheader('Limpieza de datos')
+    
+    df_egresados = fn.cargar_datos(archivo_OLE)
+    
+    st.sidebar.divider()
+    st.sidebar.subheader("Observatorio laboral")
+    anho_seleccionado = st.sidebar.selectbox("📅 Selecciona el Año de Grado:", fn.lista_anhos_disponebles(df_egresados))
+    
+    df_filtrado_anho = fn.df_filtrado_anhos(df_egresados,anho_seleccionado)
+    
+    df_agrupado_prog_sex = fn.df_filtrado_agrupado_programa_y_sexo(df_filtrado_anho)
+    
+    df_top_20 = fn.top_20_programas(df_agrupado_prog_sex)
+    
+    # st.dataframe(df_top_20)
+    
+    grafica_top_20 = fn.generando_grafica_top_20(df_top_20,anho_seleccionado)
+    
+    st.plotly_chart(grafica_top_20)
