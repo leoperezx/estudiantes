@@ -16,16 +16,25 @@ archivo_OLE = 'data/prosessed/df_observador_laboral_pregrado.csv'
 # # print(df.info())
 # # print(df.columns)
 df_matriculas = fn.cargar_datos(archivo_SNIES_2022)
-
-st.title('Datos sobre el sistema educativo en Colombia - 2022')
-st.markdown(''' 
-            En el [Sistema Nacional de Información de la Educación Superior - SNIES](https://snies.mineducacion.gov.co/portal/ESTADISTICAS/Bases-consolidadas/) se encuentran diferentes bases de datos sobre los estudiantes inscritos, admitidos y matriculados en las instituciones de educación superior en Colombia. 
-            
-            Estas bases de datos son la materia prima de este "tablero" que invita a estudiantes, maestros, padres de familia o acudientes a ver de una forma mas comoda los datos registrados por el SNIES. 
-            
-            Developed by | :blue-background[@leoperez.x]
-            ''')
-
+row0=st.container()
+title, ima = row0.columns([0.4, 0.6])
+with row0:
+    with title:
+        
+        st.title('Datos sobre el sistema educativo en Colombia - 2022')
+        st.markdown(''' 
+                    En el [Sistema Nacional de Información de la Educación Superior - SNIES](https://snies.mineducacion.gov.co/portal/ESTADISTICAS/Bases-consolidadas/) se encuentran diferentes bases de datos sobre los estudiantes inscritos, admitidos y matriculados en las instituciones de educación superior en Colombia. 
+                    
+                    Estas bases de datos son la materia prima de este "tablero" que invita a estudiantes, maestros, padres de familia o acudientes a ver de una forma mas comoda los datos registrados por el SNIES. Sin embargo, este ejercicio de programación tiene un [repositorio](https://github.com/leoperezx/estudiantes) en donde se encuentran las bases de datos originales, las funciones para filtrar la información y reducir los datos a manipular, las funciones para crear la organización y presentación de las gráficas.
+                    
+                    Este trabajo se encuentra en construcción y seguro tendra algunos errores, sin enavargo te invito a que me compartas tu opinión o recomendación para seguir mejorando. 
+                    
+                    Developed by | :blue-background[ [@leoperez.x](https://www.instagram.com/leoperez.x/) ]
+                    ''')
+    with ima:
+        
+        st.image(image="https://oronoticias.tv/wp-content/uploads/2026/06/educacion-scaled.jpg")
+    
 st.divider()
 
 st.header('Bienvenido al panel de datos')
@@ -82,27 +91,27 @@ with tab1:
         st.plotly_chart(grafica)
             
         
-        with col3:
-            sumatoria_por_Area_de_conocimiento = fn.Area_de_conocimiento_sumatoria(df_departamento).sort_values(ascending=False)
-            data_sumatoria_por_areas_de_conocimiento = fn.convertir_a_df(sumatoria_por_Area_de_conocimiento)
-            st.subheader("Gráfica de matrículas por áreas de conocimiento", text_alignment='center')
-            grafica=fn.generando_grafica(data_sumatoria_por_areas_de_conocimiento,"Matrícula","Áreas de conocimiento")
-            st.plotly_chart(grafica)
-        
-        with col4:
-            # Imprime dataframe
-            st.write("Gráfica por nombre del programa")
-            sumatoria_por_programa_academico = fn.programa_academico_sumatoria(df_departamento).sort_values(ascending=False).head(10)
-            data_sumatoria_por_programa_academico = fn.convertir_a_df(sumatoria_por_programa_academico)
-            st.subheader("Gráfica de matrículas por programa académico", text_alignment='center')
-            grafica=fn.generando_grafica(data_sumatoria_por_programa_academico,"Matrícula","Programa académico")
-            st.plotly_chart(grafica)
-        
-        # - imprimir lista por áreas
-        # - separar info por programas
-        # - hacer graficas de los programas (torta o barras con porcentajes)
-        
-        # - 
+    with col3:
+        sumatoria_por_Area_de_conocimiento = fn.Area_de_conocimiento_sumatoria(df_departamento).sort_values(ascending=False)
+        data_sumatoria_por_areas_de_conocimiento = fn.convertir_a_df(sumatoria_por_Area_de_conocimiento)
+        st.subheader("Gráfica de matrículas por áreas de conocimiento", text_alignment='center')
+        grafica=fn.generando_grafica(data_sumatoria_por_areas_de_conocimiento,"Matrícula","Áreas de conocimiento")
+        st.plotly_chart(grafica)
+    
+    with col4:
+        # Imprime dataframe
+        st.write("Gráfica por nombre del programa")
+        sumatoria_por_programa_academico = fn.programa_academico_sumatoria(df_departamento).sort_values(ascending=False).head(10)
+        data_sumatoria_por_programa_academico = fn.convertir_a_df(sumatoria_por_programa_academico)
+        st.subheader("Gráfica de matrículas por programa académico", text_alignment='center')
+        grafica=fn.generando_grafica(data_sumatoria_por_programa_academico,"Matrícula","Programa académico")
+        st.plotly_chart(grafica)
+    
+    # - imprimir lista por áreas
+    # - separar info por programas
+    # - hacer graficas de los programas (torta o barras con porcentajes)
+    
+    # - 
 
 
     

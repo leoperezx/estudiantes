@@ -78,7 +78,7 @@ def generando_grafica_top_20(df,anho_seleccionado):
         title=f'Top 20 Programas Académicos con Mayor Número de Graduados con empleo en {anho_seleccionado} en Colombia',
         labels={'GRADUADOS': 'Total Graduados', 'PROGRAMA ACADÉMICO': 'Programa Académico'},
         barmode='group', 
-        color_discrete_map={'FEMENINO': '#e066ff', 'MASCULINO': '#1f77b4'},
+        color_discrete_map={'Femenino': '#e066ff', 'Masculino': '#1f77b4'},
         orientation='h'               # Forzar orientación horizontal
     )
     fig.update_layout(
